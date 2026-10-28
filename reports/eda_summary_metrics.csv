@@ -1,0 +1,30 @@
+Dimension,Segment_Value,Total_Customers,Churned_Customers,Churn_Rate_%,Customer_Share_%
+Contract,Month-to-month,3875,1655,42.71,55.02
+Contract,One year,1473,166,11.27,20.91
+Contract,Two year,1695,48,2.83,24.07
+TenureCohort,0-12 Mos,2186,1037,47.44,31.04
+TenureCohort,13-24 Mos,1024,294,28.71,14.54
+TenureCohort,25-48 Mos,1594,325,20.39,22.63
+TenureCohort,49-60 Mos,832,120,14.42,11.81
+TenureCohort,61-72 Mos,1407,93,6.61,19.98
+InternetService,DSL,2421,459,18.96,34.37
+InternetService,Fiber optic,3096,1297,41.89,43.96
+InternetService,No,1526,113,7.4,21.67
+PaymentMethod,Bank transfer (automatic),1544,258,16.71,21.92
+PaymentMethod,Credit card (automatic),1522,232,15.24,21.61
+PaymentMethod,Electronic check,2365,1071,45.29,33.58
+PaymentMethod,Mailed check,1612,308,19.11,22.89
+TechSupport,No,3473,1446,41.64,49.31
+TechSupport,No internet service,1526,113,7.4,21.67
+TechSupport,Yes,2044,310,15.17,29.02
+OnlineSecurity,No,3498,1461,41.77,49.67
+OnlineSecurity,No internet service,1526,113,7.4,21.67
+OnlineSecurity,Yes,2019,295,14.61,28.67
+PaperlessBilling,No,2872,469,16.33,40.78
+PaperlessBilling,Yes,4171,1400,33.57,59.22
+MonthlyChargeTier,Low (<$35),1735,189,10.89,24.63
+MonthlyChargeTier,Medium ($35-$70),1725,413,23.94,24.49
+MonthlyChargeTier,High ($70-$90),1844,697,37.8,26.18
+MonthlyChargeTier,Very High (>$90),1739,570,32.78,24.69
+SeniorCitizen_Label,No,5901,1393,23.61,83.79
+SeniorCitizen_Label,Yes,1142,476,41.68,16.21

@@ -1,0 +1,106 @@
+﻿// ============================================================================
+// DAX Measures Library
+// Project: Customer Churn & Retention Analysis
+// Tool: Microsoft Power BI Desktop
+// Purpose: Dedicated Measures Table (_Measures) for Executive Dashboard
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// 1. Core Volume Measures
+// ----------------------------------------------------------------------------
+
+Total Customers = 
+COUNTROWS(customer_churn)
+
+Churned Customers = 
+CALCULATE(
+    COUNTROWS(customer_churn),
+    customer_churn[Churn] = "Yes"
+)
+
+Retained Customers = 
+CALCULATE(
+    COUNTROWS(customer_churn),
+    customer_churn[Churn] = "No"
+)
+
+// ----------------------------------------------------------------------------
+// 2. Churn & Retention Percentage Rates
+// ----------------------------------------------------------------------------
+
+Churn Rate % = 
+DIVIDE([Churned Customers], [Total Customers], 0)
+
+Retention Rate % = 
+DIVIDE([Retained Customers], [Total Customers], 0)
+
+// Dynamic KPI Title for Cards
+Churn Rate Label = 
+"Churn Rate: " & FORMAT([Churn Rate %], "0.0%")
+
+// ----------------------------------------------------------------------------
+// 3. Financial & Revenue Impact Measures
+// ----------------------------------------------------------------------------
+
+Total Monthly Revenue = 
+SUM(customer_churn[MonthlyCharges])
+
+Retained Monthly Revenue = 
+CALCULATE(
+    SUM(customer_churn[MonthlyCharges]),
+    customer_churn[Churn] = "No"
+)
+
+Lost Monthly Revenue (Churned MRR) = 
+CALCULATE(
+    SUM(customer_churn[MonthlyCharges]),
+    customer_churn[Churn] = "Yes"
+)
+
+Total Lifetime Revenue = 
+SUM(customer_churn[TotalCharges])
+
+Average Monthly Charges = 
+AVERAGE(customer_churn[MonthlyCharges])
+
+Average Tenure (Months) = 
+AVERAGE(customer_churn[tenure])
+
+// ----------------------------------------------------------------------------
+// 4. Advanced High-Risk Segment Measures (Targeted Action)
+// ----------------------------------------------------------------------------
+
+// Identifies the vulnerable profile: Month-to-month, Fiber Optic, Electronic Check, Tenure <= 12m
+High Risk Total Customers = 
+CALCULATE(
+    COUNTROWS(customer_churn),
+    customer_churn[Contract] = "Month-to-month",
+    customer_churn[InternetService] = "Fiber optic",
+    customer_churn[PaymentMethod] = "Electronic check",
+    customer_churn[tenure] <= 12
+)
+
+High Risk Churned Customers = 
+CALCULATE(
+    [High Risk Total Customers],
+    customer_churn[Churn] = "Yes"
+)
+
+High Risk Active Customers = 
+CALCULATE(
+    [High Risk Total Customers],
+    customer_churn[Churn] = "No"
+)
+
+High Risk Cohort Churn Rate % = 
+DIVIDE([High Risk Churned Customers], [High Risk Total Customers], 0)
+
+Immediate Revenue at Risk ($/mo) = 
+CALCULATE(
+    SUM(customer_churn[MonthlyCharges]),
+    customer_churn[Contract] = "Month-to-month",
+    customer_churn[InternetService] = "Fiber optic",
+    customer_churn[PaymentMethod] = "Electronic check",
+    customer_churn[tenure] <= 12,
+    customer_churn[Churn] = "No"
+)
